@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — engineering platform expansion
+
+- Resumable provider-backed planning, scoped DAG implementation, staged checks and review/repair.
+- Six configurable role contracts, audited tools and explicit container/local execution policy.
+- Rich conflict lifecycles, architecture contracts and searchable engineering memory.
+- Security inventories, performance gates and paired five-project repair evaluation.
+- Fresh behavioral regression evidence and current limitations in `docs/validation-v2.md`.
+
+
 ## 0.1.0 — 2026-11-21
 
 Initial alpha release:

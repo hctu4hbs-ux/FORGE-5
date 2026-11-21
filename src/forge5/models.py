@@ -74,10 +74,34 @@ class Finding:
     title: str
     detail: str
     evidence: str
+    claim: str | None = None
+    locations: tuple[dict[str, Any], ...] = ()
+    required_test: str | None = None
+    implementation_role: str = "implementation"
 
     @classmethod
     def parse(cls, data: Any) -> Finding:
-        data = keys(data, {"id", "severity", "title", "detail", "evidence"})
+        data = keys(
+            data,
+            {"id", "severity", "title", "detail", "evidence"},
+            {"claim", "locations", "required_test", "implementation_role"},
+        )
+        locations = data.get("locations", ())
+        if not isinstance(locations, (list, tuple)) or len(locations) > 100:
+            raise ForgeError("locations must contain at most 100 source ranges")
+        normalized = []
+        for location in locations:
+            location = keys(location, {"path", "start_line"}, {"end_line"})
+            path = text(location["path"], "location path", 500)
+            from pathlib import PurePosixPath
+
+            parsed = PurePosixPath(path)
+            if parsed.is_absolute() or ".." in parsed.parts or "\\" in path:
+                raise ForgeError("Finding locations must be project-relative paths")
+            start, end = location["start_line"], location.get("end_line", location["start_line"])
+            if type(start) is not int or type(end) is not int or not 1 <= start <= end:
+                raise ForgeError("Finding source line ranges must be positive and ordered")
+            normalized.append({"path": path, "start_line": start, "end_line": end})
         try:
             severity = Severity(data["severity"])
         except (TypeError, ValueError) as exc:
@@ -88,6 +112,12 @@ class Finding:
             text(data["title"], "title", 500),
             text(data["detail"], "detail"),
             text(data["evidence"], "evidence"),
+            text(data["claim"], "claim") if data.get("claim") is not None else None,
+            tuple(normalized),
+            identifier(data["required_test"], "required_test")
+            if data.get("required_test") is not None
+            else None,
+            identifier(data.get("implementation_role", "implementation"), "implementation_role"),
         )
 
 

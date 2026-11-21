@@ -5,14 +5,14 @@ description: Build, debug, review, harden and release complex multi-module Pytho
 
 # FORGE-5 — AI Engineering Council
 
-Turn the user's objective into working software and current, inspectable evidence. Use the runtime to enforce workflow invariants. Supply engineering judgment and implementation through the host agent; the runtime does not generate code by itself.
+Turn the user's objective into working software and current, inspectable evidence. Use the runtime to enforce workflow invariants. Configure real command providers for engineering judgment and code proposals; the runtime orchestrates their work and validates bounded changes. It does not include a model service.
 
 ## Establish the workspace
 
 1. Read the project's applicable instructions and inspect existing code before editing. Preserve user changes. Identify available execution, delegation, network and model capabilities. Respect host approval rules.
 2. Define acceptance criteria, compatibility, data sensitivity, failure modes and measurable performance budgets. Resolve routine choices autonomously. Ask only for decisions that materially change the objective or authorization.
 3. Use Python 3.11+ and the `forge5` CLI. If it is not installed, use the repository checkout: `python3 -m pip install /absolute/path/to/FORGE-5`. Do not install from an invented registry package or URL. The repository-local `skills/forge-5/scripts/forge.py` helper can run the checkout without installation. See [runtime.md](references/runtime.md).
-4. In the target project, run `forge5 init --goal "..."`. Inspect and configure `forge5.toml` before executing commands. Require real test discovery and security review; add lint, types, dependency audit and measurable performance checks when relevant. Commands inherit host permissions; use the host's sandbox/container for untrusted code.
+4. In the target project, run `forge5 init --goal "..."`. Inspect and configure `forge5.toml` before executing commands. Require real test discovery and security review; add lint, types, dependency audit and measurable performance checks when relevant. The legacy check command inherits host permissions. Development commands support explicit isolation policies; default execution fails closed without an operational configured container. Opt into `--allow-local` only for trusted commands and report the missing isolation.
 
 ## Assign the five expert roles
 
@@ -27,6 +27,20 @@ Read [council.md](references/council.md) for responsibilities and objection rule
 | Product & Release Director | Usable installation, end-to-end behavior, docs, licensing and honest release evidence |
 
 When delegation exists, dispatch fresh reviewers with role packets from `forge5 review packet ROLE`. Give reviewers the source and task artifacts, without a suggested verdict or suspected fix. Keep reviewer work read-only and isolate implementation edits. Use worktrees or explicit nonoverlapping ownership if parallel implementation is warranted. Never imply independence when one context performs all roles. Without delegation, perform five sequential passes and submit with `--mode sequential`; disclose that limit.
+
+## Run the configured development orchestrator
+
+Read [the platform protocol](references/platform.md) before connecting providers. Configure six distinct registry entries: the five reviewers plus `implementation`, each with its own argv/provider/identity and optional model/timeout. Declared identities do not establish independent AI reasoning. A review-only adapter cannot implement development requests.
+
+```bash
+forge5 --root /path/to/project plan --goal "Implement the requested Python system" --agents /path/to/agents.json --execute
+forge5 --root /path/to/project build --agents /path/to/agents.json --rounds 3 --execute --format markdown
+forge5 --root /path/to/project release --format json
+```
+
+The architect returns a DAG with acceptance contracts and exact `allowed_paths`; optional task `check_names` select incremental gates, while final required gates remain mandatory. The implementation provider returns preimage-bound file changes and new tests. Staged checks run before integration, then all final checks and static architecture contracts run before five-role review. Repair responses remain open until the author reviews current evidence. Inspect patches under `.forge5/changes`. Resume with `build`; changed provider policy requires re-planning. Never grant unrestricted file scope to make a task pass.
+
+Use `forge5 conflict` for recorded discussion, `forge5 memory` for searchable lessons, `forge5 security` for scoped security inventories, `forge5 benchmark` for configured budgets and `forge5 evaluate` for paired repair experiments. The fixture evaluation is a deterministic integration test, not an independent model benchmark. Missing dependency audits, unavailable container execution and unknown costs must remain explicit in reports. Manual host coordination below remains supported when providers are unavailable.
 
 ## Build in verifiable slices
 

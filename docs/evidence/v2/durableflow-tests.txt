@@ -1,0 +1,31 @@
+test_deep_dag_avoids_recursion_limit (test_store.ModelTests.test_deep_dag_avoids_recursion_limit) ... ok
+test_document_parser_rejects_malformed_and_unknown_fields (test_store.ModelTests.test_document_parser_rejects_malformed_and_unknown_fields) ... ok
+test_invalid_dags_and_json_rejected_before_database_changes (test_store.ModelTests.test_invalid_dags_and_json_rejected_before_database_changes) ... ok
+test_actual_worker_death_and_restart_recovery (test_store.StoreTests.test_actual_worker_death_and_restart_recovery) ... ok
+test_atomic_claims_across_processes (test_store.StoreTests.test_atomic_claims_across_processes) ... ok
+test_atomic_claims_across_threads (test_store.StoreTests.test_atomic_claims_across_threads) ... ok
+test_claim_scope_and_missing_workflow (test_store.StoreTests.test_claim_scope_and_missing_workflow) ... ok
+test_concurrent_submission_returns_one_id (test_store.StoreTests.test_concurrent_submission_returns_one_id) ... ok
+test_ephemeral_databases_are_rejected (test_store.StoreTests.test_ephemeral_databases_are_rejected) ... ok
+test_expired_tokens_cannot_renew_fail_or_complete (test_store.StoreTests.test_expired_tokens_cannot_renew_fail_or_complete) ... ok
+test_failure_blocks_transitive_dependents_but_not_independent_work (test_store.StoreTests.test_failure_blocks_transitive_dependents_but_not_independent_work) ... ok
+test_final_expiration_exhausts_attempt_and_blocks_descendant (test_store.StoreTests.test_final_expiration_exhausts_attempt_and_blocks_descendant) ... ok
+test_idempotency_is_canonical_and_conflicts_are_atomic (test_store.StoreTests.test_idempotency_is_canonical_and_conflicts_are_atomic) ... ok
+test_invalid_result_leaves_claim_available_for_failure (test_store.StoreTests.test_invalid_result_leaves_claim_available_for_failure) ... ok
+test_parameterized_sql_preserves_hostile_strings (test_store.StoreTests.test_parameterized_sql_preserves_hostile_strings) ... ok
+test_renewal_extends_ownership (test_store.StoreTests.test_renewal_extends_ownership) ... ok
+test_retry_backoff_and_dependency_results_survive_reopen (test_store.StoreTests.test_retry_backoff_and_dependency_results_survive_reopen) ... ok
+test_cli_failures_have_exit_status (test_worker_cli.CliTests.test_cli_failures_have_exit_status) ... ok
+test_database_errors_are_concise_input_failures (test_worker_cli.CliTests.test_database_errors_are_concise_input_failures) ... ok
+test_documented_json_workflow_submit_run_status_and_dedup (test_worker_cli.CliTests.test_documented_json_workflow_submit_run_status_and_dedup) ... ok
+test_empty_queue_and_invalid_configuration (test_worker_cli.WorkerTests.test_empty_queue_and_invalid_configuration) ... ok
+test_heartbeat_prevents_reclaim_of_long_handler (test_worker_cli.WorkerTests.test_heartbeat_prevents_reclaim_of_long_handler) ... ok
+test_real_parallelism_is_bounded_and_dependencies_are_satisfied (test_worker_cli.WorkerTests.test_real_parallelism_is_bounded_and_dependencies_are_satisfied) ... ok
+test_retry_exception_then_success (test_worker_cli.WorkerTests.test_retry_exception_then_success) ... ok
+test_two_workers_drain_same_workflow_without_duplicate_delivery (test_worker_cli.WorkerTests.test_two_workers_drain_same_workflow_without_duplicate_delivery) ... ok
+test_unknown_handler_and_invalid_json_result_fail_and_block (test_worker_cli.WorkerTests.test_unknown_handler_and_invalid_json_result_fail_and_block) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 4.328s
+
+OK

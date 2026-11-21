@@ -1,0 +1,20 @@
+{
+  "coverage_version": "7.17.4",
+  "branch_coverage": true,
+  "totals": {
+    "covered_lines": 834,
+    "num_statements": 908,
+    "percent_covered": 89.09836065573771,
+    "percent_covered_display": "89",
+    "missing_lines": 74,
+    "excluded_lines": 3,
+    "percent_statements_covered": 91.85022026431719,
+    "percent_statements_covered_display": "92",
+    "num_branches": 312,
+    "num_partial_branches": 51,
+    "covered_branches": 253,
+    "missing_branches": 59,
+    "percent_branches_covered": 81.08974358974359,
+    "percent_branches_covered_display": "81"
+  }
+}

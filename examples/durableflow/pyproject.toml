@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "durableflow-example"
+version = "0.1.0"
+description = "A dependency-free durable SQLite DAG executor"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+[project.scripts]
+durableflow = "durableflow.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["durableflow*"]

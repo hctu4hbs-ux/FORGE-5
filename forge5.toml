@@ -1,0 +1,50 @@
+schema = 1
+
+[[checks]]
+name = "tests"
+argv = ["{python}", "-m", "coverage", "run", "-m", "forge5", "test", "--start", "tests"]
+kind = "test"
+timeout = 120
+required = true
+
+[[checks]]
+name = "coverage"
+argv = ["{python}", "-m", "coverage", "report"]
+kind = "custom"
+timeout = 30
+required = true
+
+[[checks]]
+name = "security"
+argv = ["{python}", "-m", "bandit", "-r", "src/forge5", "-c", "pyproject.toml"]
+kind = "security"
+timeout = 60
+required = true
+
+[[checks]]
+name = "ast-triage"
+argv = ["{python}", "-m", "forge5", "scan", "src"]
+kind = "security"
+timeout = 30
+required = true
+
+[[checks]]
+name = "lint"
+argv = ["{python}", "-m", "ruff", "check", "src", "tests", "scripts", "adapters"]
+kind = "lint"
+timeout = 30
+required = true
+
+[[checks]]
+name = "format"
+argv = ["{python}", "-m", "ruff", "format", "--check", "src", "tests", "scripts", "adapters"]
+kind = "lint"
+timeout = 30
+required = true
+
+[[checks]]
+name = "types"
+argv = ["{python}", "-m", "mypy", "src/forge5"]
+kind = "type"
+timeout = 60
+required = true

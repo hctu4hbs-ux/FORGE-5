@@ -1,0 +1,9 @@
+include LICENSE README.md SECURITY.md CONTRIBUTING.md CHANGELOG.md forge5.toml
+recursive-include skills *.md *.py *.yaml
+recursive-include docs *.md *.json *.txt
+recursive-include adapters *.py
+recursive-include scripts *.py
+recursive-include tests *.py
+recursive-include examples *.py *.md *.json *.toml
+global-exclude *.pyc *.sqlite3 *.sqlite3-wal *.sqlite3-shm
+prune examples/durableflow/.forge5

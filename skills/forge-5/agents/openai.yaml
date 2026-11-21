@@ -1,0 +1,4 @@
+interface:
+  display_name: "FORGE-5 — AI Engineering Council"
+  short_description: "Five experts, executable gates, evidence-based releases"
+  default_prompt: "Use $forge-5 to build and verify a complex Python project with an engineering council."

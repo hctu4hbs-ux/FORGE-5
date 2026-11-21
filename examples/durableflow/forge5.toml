@@ -1,0 +1,23 @@
+schema = 1
+
+[[checks]]
+name = "tests"
+argv = ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"]
+kind = "test"
+timeout = 120
+required = true
+
+[[checks]]
+name = "workload"
+argv = ["{python}", "bench.py"]
+kind = "performance"
+timeout = 20
+max_seconds = 10
+required = true
+
+[[checks]]
+name = "security"
+argv = ["{python}", "-m", "forge5", "scan", "."]
+kind = "security"
+timeout = 60
+required = true

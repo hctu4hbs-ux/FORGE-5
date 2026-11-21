@@ -1,0 +1,7 @@
+{
+  "jobs": [
+    {"id": "first", "handler": "add", "payload": {"values": [2, 3]}},
+    {"id": "second", "handler": "add", "payload": {"values": [7]}, "depends_on": ["first"]},
+    {"id": "report", "handler": "collect", "depends_on": ["first", "second"]}
+  ]
+}

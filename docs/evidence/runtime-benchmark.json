@@ -1,0 +1,15 @@
+{
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "sqlite": "3.53.1",
+  "tasks": 250,
+  "task_add_seconds": 1.1542460890000257,
+  "source_files": 1000,
+  "fingerprint_seconds": 0.061159714000041276,
+  "historical_output_events": 400,
+  "payload_bytes_each": 131072,
+  "audit_verify_seconds": 0.26121454500002983,
+  "audit_verify_peak_python_bytes": 430892,
+  "database_bytes": 52801536,
+  "limits": "One local sample, no model invocation, not a comparative benchmark"
+}

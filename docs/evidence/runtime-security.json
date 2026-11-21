@@ -1,0 +1,20 @@
+{
+  "metrics": {
+    "CONFIDENCE.HIGH": 0,
+    "CONFIDENCE.LOW": 0,
+    "CONFIDENCE.MEDIUM": 0,
+    "CONFIDENCE.UNDEFINED": 0,
+    "SEVERITY.HIGH": 0,
+    "SEVERITY.LOW": 0,
+    "SEVERITY.MEDIUM": 0,
+    "SEVERITY.UNDEFINED": 0,
+    "loc": 1410,
+    "nosec": 0,
+    "skipped_tests": 2
+  },
+  "findings": [],
+  "errors": [],
+  "reviewed_exceptions": [
+    "B404/B603 are narrowly annotated in the explicit trusted-command runner; SECURITY.md documents that boundary."
+  ]
+}

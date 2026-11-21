@@ -1,0 +1,177 @@
+{
+  "revision": 30,
+  "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+  "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+  "release_ready": true,
+  "blockers": [],
+  "ready_tasks": [],
+  "state": {
+    "created_at": "2026-11-20T23:06:52.143540+00:00",
+    "decisions": [
+      {
+        "choice": "SQLite transactional queue with token-fenced leases",
+        "id": "5e8557f42852",
+        "options": [
+          "SQLite transactional queue with token-fenced leases",
+          "External broker"
+        ],
+        "owner": "architect",
+        "rationale": "No third-party runtime; serialized atomic claims; at-least-once handlers with fenced result writes, trusted local handlers and JSON-only persistence. SQLite single-host filesystem; side effects require handler idempotency.",
+        "timestamp": "2026-11-20T23:07:19.704455+00:00",
+        "title": "Durability and execution contract"
+      }
+    ],
+    "evidence": {
+      "security": {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-m",
+          "forge5",
+          "scan",
+          "."
+        ],
+        "check_digest": "73ba2c145c594edfe43c06699339021ac4f3b0c613d160d4c61bdb7b00a7b414",
+        "exit_code": 0,
+        "kind": "security",
+        "name": "security",
+        "output": "{\n  \"scanner\": \"forge5-ast-triage\",\n  \"findings\": []\n}\n",
+        "passed": true,
+        "seconds": 0.1654664769998817,
+        "source_changed": false,
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "timed_out": false,
+        "timestamp": "2026-11-20T23:18:01.366387+00:00",
+        "truncated": false
+      },
+      "tests": {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "check_digest": "d075843b07655b00029de13b4732df4c9df13bfaf9986e32e931f8c388fda175",
+        "exit_code": 0,
+        "kind": "test",
+        "name": "tests",
+        "output": "test_deep_dag_avoids_recursion_limit (test_store.ModelTests.test_deep_dag_avoids_recursion_limit) ... ok\ntest_document_parser_rejects_malformed_and_unknown_fields (test_store.ModelTests.test_document_parser_rejects_malformed_and_unknown_fields) ... ok\ntest_invalid_dags_and_json_rejected_before_database_changes (test_store.ModelTests.test_invalid_dags_and_json_rejected_before_database_changes) ... ok\ntest_actual_worker_death_and_restart_recovery (test_store.StoreTests.test_actual_worker_death_and_restart_recovery) ... ok\ntest_atomic_claims_across_processes (test_store.StoreTests.test_atomic_claims_across_processes) ... ok\ntest_atomic_claims_across_threads (test_store.StoreTests.test_atomic_claims_across_threads) ... ok\ntest_claim_scope_and_missing_workflow (test_store.StoreTests.test_claim_scope_and_missing_workflow) ... ok\ntest_concurrent_submission_returns_one_id (test_store.StoreTests.test_concurrent_submission_returns_one_id) ... ok\ntest_ephemeral_databases_are_rejected (test_store.StoreTests.test_ephemeral_databases_are_rejected) ... ok\ntest_expired_tokens_cannot_renew_fail_or_complete (test_store.StoreTests.test_expired_tokens_cannot_renew_fail_or_complete) ... ok\ntest_failure_blocks_transitive_dependents_but_not_independent_work (test_store.StoreTests.test_failure_blocks_transitive_dependents_but_not_independent_work) ... ok\ntest_final_expiration_exhausts_attempt_and_blocks_descendant (test_store.StoreTests.test_final_expiration_exhausts_attempt_and_blocks_descendant) ... ok\ntest_idempotency_is_canonical_and_conflicts_are_atomic (test_store.StoreTests.test_idempotency_is_canonical_and_conflicts_are_atomic) ... ok\ntest_invalid_result_leaves_claim_available_for_failure (test_store.StoreTests.test_invalid_result_leaves_claim_available_for_failure) ... ok\ntest_parameterized_sql_preserves_hostile_strings (test_store.StoreTests.test_parameterized_sql_preserves_hostile_strings) ... ok\ntest_renewal_extends_ownership (test_store.StoreTests.test_renewal_extends_ownership) ... ok\ntest_retry_backoff_and_dependency_results_survive_reopen (test_store.StoreTests.test_retry_backoff_and_dependency_results_survive_reopen) ... ok\ntest_cli_failures_have_exit_status (test_worker_cli.CliTests.test_cli_failures_have_exit_status) ... ok\ntest_database_errors_are_concise_input_failures (test_worker_cli.CliTests.test_database_errors_are_concise_input_failures) ... ok\ntest_documented_json_workflow_submit_run_status_and_dedup (test_worker_cli.CliTests.test_documented_json_workflow_submit_run_status_and_dedup) ... ok\ntest_empty_queue_and_invalid_configuration (test_worker_cli.WorkerTests.test_empty_queue_and_invalid_configuration) ... ok\ntest_heartbeat_prevents_reclaim_of_long_handler (test_worker_cli.WorkerTests.test_heartbeat_prevents_reclaim_of_long_handler) ... ok\ntest_real_parallelism_is_bounded_and_dependencies_are_satisfied (test_worker_cli.WorkerTests.test_real_parallelism_is_bounded_and_dependencies_are_satisfied) ... ok\ntest_retry_exception_then_success (test_worker_cli.WorkerTests.test_retry_exception_then_success) ... ok\ntest_two_workers_drain_same_workflow_without_duplicate_delivery (test_worker_cli.WorkerTests.test_two_workers_drain_same_workflow_without_duplicate_delivery) ... ok\ntest_unknown_handler_and_invalid_json_result_fail_and_block (test_worker_cli.WorkerTests.test_unknown_handler_and_invalid_json_result_fail_and_block) ... ok\n\n----------------------------------------------------------------------\nRan 26 tests in 3.338s\n\nOK\n",
+        "passed": true,
+        "seconds": 3.4973689170001308,
+        "source_changed": false,
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "timed_out": false,
+        "timestamp": "2026-11-20T23:17:59.379696+00:00",
+        "truncated": false
+      },
+      "workload": {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "bench.py"
+        ],
+        "check_digest": "6ac385db4d154b4ddbb55175806265392fade7533ecbd97e0bf7ce1c336391c9",
+        "exit_code": 0,
+        "kind": "performance",
+        "name": "workload",
+        "output": "{\"jobs\": 200, \"concurrency\": 4, \"seconds\": 1.6995999590001247, \"budget_seconds\": 10}\n",
+        "passed": true,
+        "seconds": 1.7999966039999435,
+        "source_changed": false,
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "timed_out": false,
+        "timestamp": "2026-11-20T23:18:01.190409+00:00",
+        "truncated": false
+      }
+    },
+    "findings": {},
+    "goal": "Build a durable SQLite DAG workflow executor with fenced leases, idempotent submission, retries, bounded execution and a CLI",
+    "reviews": {
+      "architect": {
+        "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+        "findings": [],
+        "mode": "host",
+        "role": "architect",
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "summary": "Renewed architect review after inspecting the corrected VALIDATION.md and fresh packet. The report now labels the historical measurements explicitly and records the Asia/Riyadh date. Fresh tests, security and workload gate evidence all passed against source f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7. Prior direct source review and independent 26-test run remain applicable to the unchanged implementation: SQLite owns durable transitions, atomic claims/submissions and token/expiry fencing are coherent, dependencies and recovery are consistent, and operational limits are explicit. No open findings or architectural blocker within the documented local example scope.",
+        "timestamp": "2026-11-20T23:19:00.310984+00:00",
+        "verdict": "approve"
+      },
+      "debugger": {
+        "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+        "findings": [],
+        "mode": "host",
+        "role": "debugger",
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "summary": "Renewed after inspecting corrected VALIDATION.md and fresh packet. The report now distinguishes its historical measured run and local date from current gate evidence. Current source-matched tests, security and workload checks all passed. My prior independent execution discovered 26 tests and passed in 2.995s; the additional SQLite trigger fault probe verified complete rollback of a partially inserted workflow. No blocking defect found within the documented trusted-handler, single-host and at-least-once execution contract. No new independent test run was needed for this documentation-only refresh.",
+        "timestamp": "2026-11-20T23:19:00.674528+00:00",
+        "verdict": "approve"
+      },
+      "principal": {
+        "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+        "findings": [],
+        "mode": "host",
+        "role": "principal",
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "summary": "Renewed read-only principal review for fresh source/context digests after inspecting the actual VALIDATION.md correction. The report now distinguishes historical measured runs from the current gate and accurately bounds compatibility and review claims. Previously inspected model/store/worker/CLI API and control flow remain within the documented single-host, trusted-handler, at-least-once contract; no new blocker or open objection is present. My earlier independently executed suite passed all 26 tests in 3.444s; I did not rerun tests for this documentation-only refresh. Fresh packet records current passing tests/security/workload evidence at the reviewed source digest. This is an agent role review, not a human audit.",
+        "timestamp": "2026-11-20T23:19:00.480405+00:00",
+        "verdict": "approve"
+      },
+      "product": {
+        "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+        "findings": [],
+        "mode": "host",
+        "role": "product",
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "summary": "Renewed product/release approval after inspecting the refreshed VALIDATION.md and fresh packet. The report now labels its timings as a specific historical run rather than the latest gate; its 26-test 3.281s and 200-job 1.906648s values match the previously observed gate. The revised local date and explicit review/compatibility limits do not introduce unsupported release claims. Fresh packet records passing test, workload and security checks for the current source. Earlier independently executed README submit/dedup/run/status checks, 26 passing tests in 3.076s, and isolated-copy install/entrypoint checks remain applicable to unchanged code and packaging; those checks were not rerun for this documentation-only refresh. No product blocker found within the documented local example scope. Reviewed source/context digests f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7 / d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af.",
+        "timestamp": "2026-11-20T23:19:00.966358+00:00",
+        "verdict": "approve"
+      },
+      "security": {
+        "context_digest": "d0ab4a1e3f600b87466db608c8cc0a249c5ed7ec4a98cb51e1f9f1f64e0699af",
+        "findings": [],
+        "mode": "host",
+        "role": "security",
+        "source_digest": "f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7",
+        "summary": "Read-only source/security and performance review found no blocking defect within the documented trusted-local, single-host scope. SQLite values use bound parameters; definitions/results use strict finite JSON; the CLI dispatches an explicit handler registry without imports, shell commands or Python deserialization. Transactional token and lease checks protect persisted results, while external side effects remain explicitly at least once. The README accurately discloses plaintext storage, trusted database/handlers, unbounded payload size, no isolation/authentication, clock assumptions and lack of hard handler cancellation. Independently ran all 26 tests successfully in 3.596 seconds and the 200-job/concurrency-4 workload in 2.200264 seconds against the 10-second budget. This is a source review plus local probes, not a penetration test, multi-host validation or production-readiness attestation. Renewed against source f2a796e1d58baaca8035895e5d88c64548ddd14e0bc4c42db796089cb88c0ea7 after inspecting the documentation-only VALIDATION.md correction: the observation date is explicitly Asia/Riyadh and the report labels recorded timing samples as historical rather than latest. The fresh packet records passing test/security/workload checks against this source, with unchanged task/decision context. No new security or performance finding was introduced; independent execution timings stated above belong to the original code review run.",
+        "timestamp": "2026-11-20T23:19:00.795748+00:00",
+        "verdict": "approve"
+      }
+    },
+    "schema": 1,
+    "tasks": {
+      "execution": {
+        "acceptance": "Retries, dependency propagation, bounded parallelism, long-handler heartbeat, restart and CLI end-to-end pass",
+        "completion_evidence": "26 tests passed: bounded barrier concurrency, two workers, heartbeat, retries and CLI subprocess workflow/status/error exits",
+        "dependencies": [
+          "persistence"
+        ],
+        "id": "execution",
+        "owner": "principal",
+        "status": "done",
+        "title": "Bounded execution and CLI"
+      },
+      "persistence": {
+        "acceptance": "Validation, idempotent concurrent submission, atomic claims, lease recovery and stale-token fencing tests pass",
+        "completion_evidence": "26-test suite passed including thread/process atomic claims, idempotency, retries, fencing, actual child exit and reopen recovery",
+        "dependencies": [],
+        "id": "persistence",
+        "owner": "architect",
+        "status": "done",
+        "title": "Validated DAG and transactional persistence"
+      },
+      "validation": {
+        "acceptance": "All discovered tests, security triage, measured workload and documented first workflow pass; honest review mode recorded",
+        "completion_evidence": "README, example, license, validation report; test/security/workload gates passed; 200 jobs in 1.968649s versus 10s budget",
+        "dependencies": [
+          "execution"
+        ],
+        "id": "validation",
+        "owner": "product",
+        "status": "done",
+        "title": "Operational documentation and measured validation"
+      }
+    }
+  }
+}

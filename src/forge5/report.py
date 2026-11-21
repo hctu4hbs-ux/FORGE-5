@@ -72,7 +72,8 @@ def markdown(status: dict[str, Any]) -> str:
             "",
             "This report records local evidence and declared expert roles. "
             "It does not prove reviewer independence, completeness, authenticity, or security. "
-            "The AST scanner is triage. Commands run with host permissions, without a sandbox.",
+            "The AST scanner is triage. Execution isolation is recorded per check/provider; "
+            "legacy local commands run with host permissions without a sandbox.",
             "",
         ]
     )

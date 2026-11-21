@@ -33,6 +33,16 @@ give the host delegation, filesystem access or permission to execute commands.
 The installer creates one `forge-5` directory and refuses existing files, directories
 and symlinks at that target. It does not modify global agent settings.
 
+For the expanded development platform, configure all six providers and the
+execution policy described in [the platform guide](platform-v2.md). Use
+`python -m pip install -e '.[dev]'` when running this repository's quality gates.
+Provider executables, model access and an operational container runtime are
+separate capabilities; installing the Python package does not provision them.
+
+The earlier validation table records the 0.1 integration scope. Expanded-platform
+results must be obtained from the current tests and evaluation reports, not
+inferred from that historical table.
+
 Core runtime requirements: Python 3.11+, stdlib SQLite and a writable local project.
 Linux/POSIX is the locally validated platform. CI is configured for Python
 3.11–3.14 on Linux; configured CI is not evidence that remote runs have passed.

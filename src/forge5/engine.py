@@ -16,7 +16,11 @@ from forge5.workspace import fingerprint
 
 def context_digest(state: State, role: Role | None = None) -> str:
     """Bind approvals to acceptance contracts, not just the filesystem."""
-    plan = digest({key: state[key] for key in ("goal", "tasks", "decisions")})
+    inputs = {key: state[key] for key in ("goal", "tasks", "decisions")}
+    for key in ("execution_policy_digest", "architecture_policy_digest", "provider_policy_digest"):
+        if key in state:
+            inputs[key] = state[key]
+    plan = digest(inputs)
     if role is None:
         return plan
     authored = {
@@ -43,6 +47,16 @@ def apply_review(state: State, review: Review, source: str, plan: str, mode: str
             "author": role,
             "source_digest": source,
             "status": "open",
+            "lifecycle": "reopened"
+            if previous and previous["status"] == "closed"
+            else previous.get("lifecycle", "open")
+            if previous
+            else "open",
+            "claim": finding.claim or finding.detail,
+            "implementation_response": previous.get("implementation_response")
+            if previous
+            else None,
+            "discussion": previous.get("discussion", []) if previous else [],
             "resolution": None,
             "history": previous.get("history", []) if previous else [],
         }
@@ -236,6 +250,18 @@ class Council:
         rationale: str,
         evidence_names: list[str],
     ) -> None:
+        self._resolve(finding_id, actor, disposition, rationale, evidence_names, independent=False)
+
+    def _resolve(
+        self,
+        finding_id: str,
+        actor: str,
+        disposition: str,
+        rationale: str,
+        evidence_names: list[str],
+        *,
+        independent: bool,
+    ) -> None:
         try:
             role = Role(actor)
         except ValueError as exc:
@@ -251,12 +277,23 @@ class Council:
             finding = state["findings"].get(finding_id)
             if finding is None or finding["status"] != "open":
                 raise ForgeError("Finding must exist and be open")
-            if role.value != finding["author"]:
+            if role.value == finding.get("implementation_role", "implementation"):
+                raise ForgeError("The implementation actor cannot close its own finding")
+            if role.value != finding["author"] and not independent:
                 raise ForgeError("Only the objecting expert can close their finding")
             if disposition == "accepted_risk" and finding["severity"] in ("critical", "high"):
                 raise ForgeError("High/critical findings cannot be waived for release")
             if disposition == "fixed" and not evidence_names:
                 raise ForgeError("A fixed finding needs current passing check evidence")
+            if (
+                disposition == "rejected"
+                and finding["severity"] in ("critical", "high")
+                and not evidence_names
+            ):
+                raise ForgeError("Rejecting a high/critical claim requires passing counterevidence")
+            required = finding.get("required_test")
+            if disposition == "fixed" and required and required not in evidence_names:
+                raise ForgeError(f"Fix requires the requested regression check: {required}")
             for name in evidence_names:
                 evidence = state["evidence"].get(name)
                 check = checks.get(name)
@@ -266,9 +303,11 @@ class Council:
                     or evidence["source_digest"] != current
                     or check is None
                     or evidence["check_digest"] != check.digest
+                    or evidence.get("execution_policy_digest")
+                    != state.get("execution_policy_digest")
                 ):
                     raise ForgeError(f"Missing, failing or stale evidence: {name}")
-            resolution = {
+            resolution: dict[str, Any] = {
                 "actor": role.value,
                 "disposition": disposition,
                 "rationale": rationale,
@@ -276,8 +315,11 @@ class Council:
                 "source_digest": current,
                 "timestamp": now(),
             }
-            finding.update(status="closed", resolution=resolution)
+            resolution["independent"] = independent
+            finding.update(status="closed", lifecycle=disposition, resolution=resolution)
             finding["history"].append(resolution)
+            finding.setdefault("discussion", []).append({"action": disposition, **resolution})
+            state["reviews"].pop(finding["author"], None)
             state["reviews"].pop(role.value, None)
 
         self.store.mutate(
@@ -289,6 +331,78 @@ class Council:
                 "rationale": rationale,
                 "evidence": evidence_names,
             },
+            update,
+        )
+
+    def conflict(
+        self,
+        finding_id: str,
+        actor: str,
+        action: str,
+        message: str,
+        evidence_names: list[str] | None = None,
+        *,
+        independent: bool = False,
+    ) -> None:
+        """Record discussion or a reviewer disposition without implementer self-closure.
+
+        Role identity is asserted by the trusted host/tool broker, not authenticated
+        cryptographically. required_test names a configured regression check.
+        """
+        if action in ("fixed", "rejected", "accepted_risk"):
+            self._resolve(
+                finding_id, actor, action, message, evidence_names or [], independent=independent
+            )
+            return
+        if action not in ("disputed", "needs_evidence", "respond", "reopen"):
+            raise ForgeError("Unsupported conflict action")
+        actor = identifier(actor, "actor")
+        if actor not in {r.value for r in Role} | {"implementation"}:
+            raise ForgeError("Unknown conflict actor")
+        message = text(message, "message")
+        current = fingerprint(self.root)
+
+        def update(state: State) -> None:
+            finding = state["findings"].get(finding_id)
+            if finding is None:
+                raise ForgeError("Unknown finding")
+            implementer = finding.get("implementation_role", "implementation")
+            if action == "reopen":
+                if actor == implementer or (actor != finding["author"] and not independent):
+                    raise ForgeError("Reopening requires the author or an independent reviewer")
+                finding.update(status="open", lifecycle="reopened", resolution=None)
+            elif finding["status"] != "open":
+                raise ForgeError("Reopen the finding before discussing it")
+            elif action == "needs_evidence":
+                if actor == implementer:
+                    raise ForgeError("An independent reviewer must request further evidence")
+                finding["lifecycle"] = "needs_evidence"
+            elif action == "disputed":
+                finding["lifecycle"] = "disputed"
+            else:
+                if actor != implementer:
+                    raise ForgeError("Only the assigned implementation actor may respond")
+                finding["implementation_response"] = {
+                    "actor": actor,
+                    "message": message,
+                    "source_digest": current,
+                    "timestamp": now(),
+                }
+                finding["lifecycle"] = "needs_evidence"
+            finding.setdefault("discussion", []).append(
+                {
+                    "action": action,
+                    "actor": actor,
+                    "message": message,
+                    "source_digest": current,
+                    "timestamp": now(),
+                }
+            )
+            state["reviews"].pop(finding["author"], None)
+
+        self.store.mutate(
+            "finding.discuss",
+            {"id": finding_id, "actor": actor, "action": action, "message": message},
             update,
         )
 
@@ -325,6 +439,11 @@ class Council:
         self.store.mutate("decision.record", {"title": title, "choice": choice}, update)
 
     def check(self, names: list[str] | None = None) -> list[dict[str, Any]]:
+        if self.store.read()[1].get("execution_policy_digest") is not None:
+            raise ForgeError(
+                "An execution policy is registered; run checks through build or the tool broker "
+                "to enforce that policy"
+            )
         checks = load_checks(self.root)
         if names and set(names) - {c.name for c in checks}:
             raise ForgeError("Unknown check name")
@@ -333,6 +452,7 @@ class Council:
             if names and check.name not in names:
                 continue
             before = fingerprint(self.root)
+            policy_digest = None  # Legacy execution never attests to a registered policy.
             result = run_process(check.argv, self.root, check.timeout)
             after = fingerprint(self.root)
             passed = (
@@ -340,6 +460,7 @@ class Council:
                 and not result.timed_out
                 and not result.truncated
                 and before == after
+                and policy_digest == self.store.read()[1].get("execution_policy_digest")
                 and (check.max_seconds is None or result.seconds <= check.max_seconds)
             )
             evidence = {
@@ -350,10 +471,15 @@ class Council:
                 "source_digest": before,
                 "check_digest": check.digest,
                 "source_changed": before != after,
+                "execution_policy_digest": None,
                 "timestamp": now(),
             }
 
             def record(state: State, e: dict[str, Any] = evidence, name: str = check.name) -> None:
+                if state.get("execution_policy_digest") is not None:
+                    raise ForgeError(
+                        "Execution policy changed during legacy check; evidence rejected"
+                    )
                 state["evidence"].update({name: e})
 
             self.store.mutate("check.record", evidence, record)
@@ -367,6 +493,15 @@ class Council:
         current_context = context_digest(state)
         checks = load_checks(self.root)
         blockers = []
+        if state.get("development", {}).get("task_order"):
+            architecture = state.get("architecture_evidence", {})
+            if (
+                not architecture.get("passed")
+                or architecture.get("source_digest") != current
+                or architecture.get("contracts_digest")
+                != digest(state.get("architecture_contracts", {}))
+            ):
+                blockers.append("Architecture contracts need current passing evidence")
         if state.get("active_round"):
             blockers.append("An incomplete review round must be retried or cancelled")
         if not state["tasks"]:
@@ -393,6 +528,7 @@ class Council:
                 or not evidence["passed"]
                 or evidence["source_digest"] != current
                 or evidence["check_digest"] != check.digest
+                or evidence.get("execution_policy_digest") != state.get("execution_policy_digest")
             ):
                 blockers.append(f"Check {check.name} needs current passing evidence")
         return {

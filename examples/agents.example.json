@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "agents": {
+    "architect": {
+      "argv": [
+        "forge5-architect-provider"
+      ],
+      "provider": "your-architect-provider",
+      "identity": "architect-session",
+      "model": "your-architect-model",
+      "timeout": 180
+    },
+    "principal": {
+      "argv": [
+        "forge5-principal-provider"
+      ],
+      "provider": "your-principal-provider",
+      "identity": "principal-session",
+      "model": "your-principal-model",
+      "timeout": 180
+    },
+    "debugger": {
+      "argv": [
+        "forge5-debugger-provider"
+      ],
+      "provider": "your-debugger-provider",
+      "identity": "debugger-session",
+      "model": "your-debugger-model",
+      "timeout": 180
+    },
+    "security": {
+      "argv": [
+        "forge5-security-provider"
+      ],
+      "provider": "your-security-provider",
+      "identity": "security-session",
+      "model": "your-security-model",
+      "timeout": 180
+    },
+    "product": {
+      "argv": [
+        "forge5-product-provider"
+      ],
+      "provider": "your-product-provider",
+      "identity": "product-session",
+      "model": "your-product-model",
+      "timeout": 180
+    },
+    "implementation": {
+      "argv": [
+        "forge5-implementation-provider"
+      ],
+      "provider": "your-implementation-provider",
+      "identity": "implementation-session",
+      "model": "your-implementation-model",
+      "timeout": 180
+    }
+  }
+}

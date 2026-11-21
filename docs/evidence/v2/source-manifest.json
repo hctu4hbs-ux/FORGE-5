@@ -1,0 +1,28 @@
+{
+  "python": "3.12.14",
+  "sqlite": "3.53.1",
+  "sources": {
+    "src/forge5/__init__.py": "4c19377a8052c7fb3720904686c0e0af46f0b4e096d098dbb66181af7170cf65",
+    "src/forge5/__main__.py": "2c7b1d014366660acf1b92c589310e2a11f25b0ac8ed1632c7bf095f213ecebf",
+    "src/forge5/agents.py": "9d7f147b1c17b7cbe848026fa94311d32f182b529256c271d6d726d2d64c09e0",
+    "src/forge5/architecture.py": "ad708bb6eae95401a2d4b6fc4c84fc2b204201c682eaf37e44ecd327c385e468",
+    "src/forge5/cli.py": "8fe5bab2d5fd921b17fa77e0492f2d45bf242b86caa02b2f74512b5599dc1cbc",
+    "src/forge5/config.py": "38365f0425ee8030fab703900c82b18a30ce48f949ee5cf47ea9d23661ad413c",
+    "src/forge5/council.py": "54e89b4ca0ac98a27ebf5c96de1944fd97fc4aeb8bedd5ab9f9e3473704124b3",
+    "src/forge5/development.py": "7ce1e701dccb75afb73bb124b62774e14a92d6019985f400ab9a401e65f2e80c",
+    "src/forge5/engine.py": "94abccebb37f90d5716b1b69cc0045597f9d3bae1a45a87ee2bb68755f332f9b",
+    "src/forge5/evaluation.py": "63c3aecf232266e494555415e926f1bdb37bebf125eac442080515750cb2d658",
+    "src/forge5/isolation.py": "fd685b5fc99b068819dbd1713f941747c14ce9fbda6c349ddd243a20a4ae244d",
+    "src/forge5/memory.py": "3ad19b1518b814b38a1cc90c8efeaf6c99cfc033a33bc4b0152192273ecfa509",
+    "src/forge5/models.py": "d31f94158ef10194dbfe63fc79d345d0817754004c99c1fdc5724501a384d7e4",
+    "src/forge5/platform_cli.py": "c83aa233924c047c527a92555f8ca511155b6d7ee7a2a58a528b1cf9378cf293",
+    "src/forge5/quality.py": "f6bf7bc6370bfc31d736281c2d74525f2cdcedeae3b7833aa86c5c5139d816fb",
+    "src/forge5/report.py": "8980cd2f94eaa74a914fba41412542aa55d31728864f6299179dbefab04f5c37",
+    "src/forge5/runner.py": "6fc9d85e1c5900c3ee182bf7da4e641ced0ae066238703d76aa228995ad5b888",
+    "src/forge5/security.py": "27a60ba60e52f098fe3fc7a96116d6448d1403df11b3800be0f1d8f938a8f515",
+    "src/forge5/store.py": "3e2333071213e7efe0667c749bca18251a275d363e405cd383fbd47536c6732b",
+    "src/forge5/testing.py": "a0079cbeb9ac8f594b7ba25e5ea39ff6a97ca0937a1daf4204ad1e95a3fff6ba",
+    "src/forge5/tools.py": "32c7d45c754de6b7012467df600f862685983f3d34e2ffb3bddedc7cd58f8a7a",
+    "src/forge5/workspace.py": "3974876c0abe2ae95f00825be50ac9f50108402f723b41d9613a36cbf63eb657"
+  }
+}

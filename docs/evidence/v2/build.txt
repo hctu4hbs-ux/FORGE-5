@@ -1,0 +1,298 @@
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77
+  - wheel
+* Getting build dependencies for sdist...
+running egg_info
+writing src/forge5_council.egg-info/PKG-INFO
+writing dependency_links to src/forge5_council.egg-info/dependency_links.txt
+writing entry points to src/forge5_council.egg-info/entry_points.txt
+writing requirements to src/forge5_council.egg-info/requires.txt
+writing top-level names to src/forge5_council.egg-info/top_level.txt
+reading manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-wal' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-shm' found anywhere in distribution
+adding license file 'LICENSE'
+writing manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.2.1
+  - wheel==0.48.0
+* Building sdist...
+running sdist
+running egg_info
+writing src/forge5_council.egg-info/PKG-INFO
+writing dependency_links to src/forge5_council.egg-info/dependency_links.txt
+writing entry points to src/forge5_council.egg-info/entry_points.txt
+writing requirements to src/forge5_council.egg-info/requires.txt
+writing top-level names to src/forge5_council.egg-info/top_level.txt
+reading manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-wal' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-shm' found anywhere in distribution
+adding license file 'LICENSE'
+writing manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+running check
+creating forge5_council-0.1.0
+creating forge5_council-0.1.0/adapters
+creating forge5_council-0.1.0/docs
+creating forge5_council-0.1.0/docs/evidence
+creating forge5_council-0.1.0/docs/evidence/v2
+creating forge5_council-0.1.0/examples
+creating forge5_council-0.1.0/examples/durableflow
+creating forge5_council-0.1.0/examples/durableflow/durableflow
+creating forge5_council-0.1.0/examples/durableflow/tests
+creating forge5_council-0.1.0/examples/evaluation
+creating forge5_council-0.1.0/scripts
+creating forge5_council-0.1.0/skills/forge-5
+creating forge5_council-0.1.0/skills/forge-5/agents
+creating forge5_council-0.1.0/skills/forge-5/references
+creating forge5_council-0.1.0/skills/forge-5/scripts
+creating forge5_council-0.1.0/src/forge5
+creating forge5_council-0.1.0/src/forge5_council.egg-info
+creating forge5_council-0.1.0/tests
+copying files to forge5_council-0.1.0...
+copying CHANGELOG.md -> forge5_council-0.1.0
+copying CONTRIBUTING.md -> forge5_council-0.1.0
+copying LICENSE -> forge5_council-0.1.0
+copying MANIFEST.in -> forge5_council-0.1.0
+copying README.md -> forge5_council-0.1.0
+copying SECURITY.md -> forge5_council-0.1.0
+copying forge5.toml -> forge5_council-0.1.0
+copying pyproject.toml -> forge5_council-0.1.0
+copying adapters/codex_reviewer.py -> forge5_council-0.1.0/adapters
+copying docs/adapters.md -> forge5_council-0.1.0/docs
+copying docs/architecture.md -> forge5_council-0.1.0/docs
+copying docs/evaluation-v2.md -> forge5_council-0.1.0/docs
+copying docs/installation.md -> forge5_council-0.1.0/docs
+copying docs/platform-v2.md -> forge5_council-0.1.0/docs
+copying docs/release-notes.md -> forge5_council-0.1.0/docs
+copying docs/research.md -> forge5_council-0.1.0/docs
+copying docs/validation.md -> forge5_council-0.1.0/docs
+copying docs/evidence/durableflow-audit.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/durableflow-report.md -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/durableflow-status.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/runtime-benchmark.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/runtime-coverage.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/runtime-reviews.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/runtime-security.json -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/runtime-tests.txt -> forge5_council-0.1.0/docs/evidence
+copying docs/evidence/v2/bandit.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/build.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/coverage.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/coverage.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/durableflow-benchmark.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/durableflow-tests.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/format.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/lint.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/quality.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/required-dependency-audit.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/runtime-benchmark.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/runtime-tests.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/skill-validation.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/source-manifest.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/source-security.json -> forge5_council-0.1.0/docs/evidence/v2
+copying docs/evidence/v2/types.txt -> forge5_council-0.1.0/docs/evidence/v2
+copying examples/agents.example.json -> forge5_council-0.1.0/examples
+copying examples/durableflow/README.md -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/VALIDATION.md -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/bench.py -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/example.json -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/forge5.toml -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/pyproject.toml -> forge5_council-0.1.0/examples/durableflow
+copying examples/durableflow/durableflow/__init__.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/durableflow/__main__.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/durableflow/cli.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/durableflow/model.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/durableflow/store.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/durableflow/worker.py -> forge5_council-0.1.0/examples/durableflow/durableflow
+copying examples/durableflow/tests/test_store.py -> forge5_council-0.1.0/examples/durableflow/tests
+copying examples/durableflow/tests/test_worker_cli.py -> forge5_council-0.1.0/examples/durableflow/tests
+copying examples/evaluation/README.md -> forge5_council-0.1.0/examples/evaluation
+copying scripts/benchmark.py -> forge5_council-0.1.0/scripts
+copying scripts/install_skill.py -> forge5_council-0.1.0/scripts
+copying skills/forge-5/SKILL.md -> forge5_council-0.1.0/skills/forge-5
+copying skills/forge-5/agents/openai.yaml -> forge5_council-0.1.0/skills/forge-5/agents
+copying skills/forge-5/references/adapters.md -> forge5_council-0.1.0/skills/forge-5/references
+copying skills/forge-5/references/council.md -> forge5_council-0.1.0/skills/forge-5/references
+copying skills/forge-5/references/evaluation.md -> forge5_council-0.1.0/skills/forge-5/references
+copying skills/forge-5/references/platform.md -> forge5_council-0.1.0/skills/forge-5/references
+copying skills/forge-5/references/runtime.md -> forge5_council-0.1.0/skills/forge-5/references
+copying skills/forge-5/scripts/forge.py -> forge5_council-0.1.0/skills/forge-5/scripts
+copying src/forge5/__init__.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/__main__.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/agents.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/architecture.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/cli.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/config.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/council.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/development.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/engine.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/evaluation.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/isolation.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/memory.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/models.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/platform_cli.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/py.typed -> forge5_council-0.1.0/src/forge5
+copying src/forge5/quality.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/report.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/runner.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/security.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/store.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/testing.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/tools.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5/workspace.py -> forge5_council-0.1.0/src/forge5
+copying src/forge5_council.egg-info/PKG-INFO -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying src/forge5_council.egg-info/SOURCES.txt -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying src/forge5_council.egg-info/dependency_links.txt -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying src/forge5_council.egg-info/entry_points.txt -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying src/forge5_council.egg-info/requires.txt -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying src/forge5_council.egg-info/top_level.txt -> forge5_council-0.1.0/src/forge5_council.egg-info
+copying tests/test_conflicts_v2.py -> forge5_council-0.1.0/tests
+copying tests/test_development.py -> forge5_council-0.1.0/tests
+copying tests/test_engine.py -> forge5_council-0.1.0/tests
+copying tests/test_evaluation_v2.py -> forge5_council-0.1.0/tests
+copying tests/test_platform_cli.py -> forge5_council-0.1.0/tests
+copying tests/test_quality_v2.py -> forge5_council-0.1.0/tests
+copying tests/test_regressions.py -> forge5_council-0.1.0/tests
+copying tests/test_runtime.py -> forge5_council-0.1.0/tests
+copying tests/test_tools.py -> forge5_council-0.1.0/tests
+copying tests/test_tools_v2.py -> forge5_council-0.1.0/tests
+Writing forge5_council-0.1.0/setup.cfg
+Creating tar archive
+removing 'forge5_council-0.1.0' (and everything under it)
+* Building wheel from sdist
+* Creating isolated environment: venv+pip...
+* Installing packages in isolated environment:
+  - setuptools>=77
+  - wheel
+* Getting build dependencies for wheel...
+running egg_info
+writing src/forge5_council.egg-info/PKG-INFO
+writing dependency_links to src/forge5_council.egg-info/dependency_links.txt
+writing entry points to src/forge5_council.egg-info/entry_points.txt
+writing requirements to src/forge5_council.egg-info/requires.txt
+writing top-level names to src/forge5_council.egg-info/top_level.txt
+reading manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-wal' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-shm' found anywhere in distribution
+no previously-included directories found matching 'examples/durableflow/.forge5'
+adding license file 'LICENSE'
+writing manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+* Installed build dependency versions:
+  - setuptools==84.2.1
+  - wheel==0.48.0
+* Building wheel...
+running bdist_wheel
+running build
+running build_py
+creating build/lib/forge5
+copying src/forge5/platform_cli.py -> build/lib/forge5
+copying src/forge5/security.py -> build/lib/forge5
+copying src/forge5/memory.py -> build/lib/forge5
+copying src/forge5/report.py -> build/lib/forge5
+copying src/forge5/store.py -> build/lib/forge5
+copying src/forge5/cli.py -> build/lib/forge5
+copying src/forge5/evaluation.py -> build/lib/forge5
+copying src/forge5/agents.py -> build/lib/forge5
+copying src/forge5/config.py -> build/lib/forge5
+copying src/forge5/council.py -> build/lib/forge5
+copying src/forge5/runner.py -> build/lib/forge5
+copying src/forge5/__main__.py -> build/lib/forge5
+copying src/forge5/workspace.py -> build/lib/forge5
+copying src/forge5/architecture.py -> build/lib/forge5
+copying src/forge5/quality.py -> build/lib/forge5
+copying src/forge5/tools.py -> build/lib/forge5
+copying src/forge5/__init__.py -> build/lib/forge5
+copying src/forge5/engine.py -> build/lib/forge5
+copying src/forge5/testing.py -> build/lib/forge5
+copying src/forge5/development.py -> build/lib/forge5
+copying src/forge5/isolation.py -> build/lib/forge5
+copying src/forge5/models.py -> build/lib/forge5
+running egg_info
+writing src/forge5_council.egg-info/PKG-INFO
+writing dependency_links to src/forge5_council.egg-info/dependency_links.txt
+writing entry points to src/forge5_council.egg-info/entry_points.txt
+writing requirements to src/forge5_council.egg-info/requires.txt
+writing top-level names to src/forge5_council.egg-info/top_level.txt
+reading manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+reading manifest template 'MANIFEST.in'
+warning: no previously-included files matching '*.pyc' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-wal' found anywhere in distribution
+warning: no previously-included files matching '*.sqlite3-shm' found anywhere in distribution
+no previously-included directories found matching 'examples/durableflow/.forge5'
+adding license file 'LICENSE'
+writing manifest file 'src/forge5_council.egg-info/SOURCES.txt'
+copying src/forge5/py.typed -> build/lib/forge5
+installing to build/bdist.linux-x86_64/wheel
+running install
+running install_lib
+creating build/bdist.linux-x86_64/wheel
+creating build/bdist.linux-x86_64/wheel/forge5
+copying build/lib/forge5/platform_cli.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/security.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/memory.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/report.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/store.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/cli.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/evaluation.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/agents.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/config.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/council.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/runner.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/__main__.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/workspace.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/architecture.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/quality.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/py.typed -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/tools.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/__init__.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/engine.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/testing.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/development.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/isolation.py -> build/bdist.linux-x86_64/wheel/./forge5
+copying build/lib/forge5/models.py -> build/bdist.linux-x86_64/wheel/./forge5
+running install_egg_info
+Copying src/forge5_council.egg-info to build/bdist.linux-x86_64/wheel/./forge5_council-0.1.0-py3.12.egg-info
+running install_scripts
+creating build/bdist.linux-x86_64/wheel/forge5_council-0.1.0.dist-info/WHEEL
+creating '/workspace/scratch/31cd33c9ef9b/FORGE-5/dist/.tmp-w7x9rsg3/forge5_council-0.1.0-py3-none-any.whl' and adding 'build/bdist.linux-x86_64/wheel' to it
+adding 'forge5/__init__.py'
+adding 'forge5/__main__.py'
+adding 'forge5/agents.py'
+adding 'forge5/architecture.py'
+adding 'forge5/cli.py'
+adding 'forge5/config.py'
+adding 'forge5/council.py'
+adding 'forge5/development.py'
+adding 'forge5/engine.py'
+adding 'forge5/evaluation.py'
+adding 'forge5/isolation.py'
+adding 'forge5/memory.py'
+adding 'forge5/models.py'
+adding 'forge5/platform_cli.py'
+adding 'forge5/py.typed'
+adding 'forge5/quality.py'
+adding 'forge5/report.py'
+adding 'forge5/runner.py'
+adding 'forge5/security.py'
+adding 'forge5/store.py'
+adding 'forge5/testing.py'
+adding 'forge5/tools.py'
+adding 'forge5/workspace.py'
+adding 'forge5_council-0.1.0.dist-info/licenses/LICENSE'
+adding 'forge5_council-0.1.0.dist-info/METADATA'
+adding 'forge5_council-0.1.0.dist-info/WHEEL'
+adding 'forge5_council-0.1.0.dist-info/entry_points.txt'
+adding 'forge5_council-0.1.0.dist-info/top_level.txt'
+adding 'forge5_council-0.1.0.dist-info/RECORD'
+removing build/bdist.linux-x86_64/wheel
+Successfully built forge5_council-0.1.0.tar.gz and forge5_council-0.1.0-py3-none-any.whl

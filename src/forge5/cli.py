@@ -50,6 +50,14 @@ def parser() -> argparse.ArgumentParser:
     ingest.add_argument("--context", required=True, help="Context digest from the original packet")
     ingest.add_argument("--revision", type=int, help="Reject concurrent council changes")
     ingest.add_argument("--mode", choices=["host", "sequential"], default="host")
+    configured_review = rs.add_parser("run", help="Run separately configured expert providers")
+    configured_review.add_argument("--agents", type=Path, default=Path("forge5-agents.json"))
+    configured_review.add_argument("--execute", action="store_true")
+    configured_review.add_argument("--allow-local", action="store_true")
+    configured_review.add_argument("--isolation", type=Path)
+    from forge5.platform_cli import output_options
+
+    output_options(configured_review)
     conflict = sub.add_parser("resolve", help="Close an objection with its author's disposition")
     conflict.add_argument("id")
     conflict.add_argument("--actor", choices=list(Role), required=True)
@@ -82,7 +90,12 @@ def parser() -> argparse.ArgumentParser:
     report.add_argument(
         "--output", type=Path, help="Prefer .forge5/report.md to avoid source edits"
     )
-    sub.add_parser("release", help="Exit 0 only when every release condition passes")
+    release_parser = sub.add_parser(
+        "release", help="Exit 0 only when every release condition passes"
+    )
+    from forge5.platform_cli import output_options
+
+    output_options(release_parser)
     sub.add_parser("audit", help="Verify and export the hash-linked event log")
     scanner = sub.add_parser("scan", help="Run built-in Python AST security triage")
     scanner.add_argument("path", type=Path, nargs="?", default=Path("."))
@@ -93,6 +106,9 @@ def parser() -> argparse.ArgumentParser:
         "round-cancel", help="Cancel an incomplete round; approvals stay revoked"
     )
     cancel.add_argument("--reason", required=True)
+    from forge5.platform_cli import extend_parser
+
+    extend_parser(sub)
     return p
 
 
@@ -117,6 +133,11 @@ def command_argv(raw: str) -> tuple[str, ...]:
 
 
 def execute(args: argparse.Namespace) -> tuple[Any, int]:
+    from forge5.platform_cli import platform_execute
+
+    platform_result = platform_execute(args)
+    if platform_result is not None:
+        return platform_result
     if args.command == "test":
         result = run_tests((args.root / args.start).resolve(), args.pattern)
         return result, int(not result["passed"])
@@ -176,7 +197,9 @@ def execute(args: argparse.Namespace) -> tuple[Any, int]:
         return content, 0
     elif args.command == "release":
         status = council.status()
-        return status, int(not status["release_ready"])
+        from forge5.platform_cli import render
+
+        return render(status, args), int(not status["release_ready"])
     elif args.command == "audit":
         council.store.verify()
         return council.store.events(), 0

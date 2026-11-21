@@ -9,22 +9,22 @@
 
 Five engineering perspectives. Persistent objections. Executable gates. **Evidence before release.**
 
-[Quick start](#start-in-five-minutes) · [How it works](#meet-your-engineering-council) · [Real results](#tested-on-working-software) · [Documentation](#documentation) · [Contribute](CONTRIBUTING.md)
+[Quick start](#start-in-five-minutes) · [How it works](#meet-your-engineering-council) · [Real results](docs/validation-v2.md) · [Documentation](#documentation) · [Contribute](CONTRIBUTING.md)
 
-FORGE-5 gives a coding agent a practical engineering workflow for complex Python
-software. A portable Agent Skill supplies the process; a zero-dependency Python
-runtime keeps tasks, objections, decisions, checks and release evidence consistent
-across sessions.
+FORGE-5 combines a portable Agent Skill with an executable Python engineering
+platform. Configure five review agents and a separate implementation agent, then
+run a persisted goal → plan → Task DAG → bounded changes → checks → review →
+objection → repair loop. Each provider can use a different model or host.
 
-The council has five roles: **Architect**, **Principal Engineer**, **Debugging
-Specialist**, **Security & Performance Engineer**, and **Product & Release Director**.
-Your existing agent supplies reasoning, code edits and tools. FORGE-5 supplies the
-coordination and verification machinery. It works with delegated reviewers or
-explicitly disclosed sequential role passes.
+The runtime coordinates execution and evidence; your configured providers supply
+engineering reasoning and code changes. A fresh process and a distinct identity
+label do not prove model independence. Real provider access remains your host's
+responsibility.
 
-> Status: 0.1.0 alpha. The runtime and example have real behavioral tests. This is
-> not a claim of production readiness, autonomous correctness or superiority on
-> software engineering benchmarks. Read the [observed validation](docs/validation.md).
+> **Alpha development:** current reproducible results are in [platform validation](docs/validation-v2.md).
+> The earlier 0.1.0 evidence is historical and must not be used as proof for changed code.
+> See the [platform guide](docs/platform-v2.md) for current interfaces, isolation
+> requirements and limitations. No production or autonomous-success claim is made.
 
 ## Meet your engineering council
 
@@ -41,21 +41,38 @@ regressions, persistence/concurrency work, and releases that need inspectable
 engineering evidence. The agent keeps building; the council keeps challenging
 unsupported conclusions.
 
-## Tested on working software
+## Evidence you can rerun
 
-| Local validation | Observed result |
-| --- | --- |
-| Council runtime | **63 behavioral tests passed** |
-| Statement + branch coverage | **89.10% combined** |
-| DurableFlow example | **26 tests passed**, including real process death and recovery |
-| Example workload | **200 jobs in 1.70 seconds**, concurrency 4, on the recorded machine |
-| Expert review | **Five independent host role reviews**, renewed after repairs |
+The repository contains behavioral tests for persistent state, freshness,
+conflict resolution, bounded implementation changes, provider dispatch, tool
+permissions, architecture contracts and evaluation fixtures. The multi-module
+[DurableFlow example](examples/durableflow) exercises SQLite persistence,
+concurrent claims and recovery after worker death.
 
-These are recorded local results, not a comparative AI benchmark or a promise
-about your machine. Inspect the [validation report](docs/validation.md) and
-[raw evidence](docs/evidence).
+Historical 0.1.0 results remain in [validation](docs/validation.md) and
+[raw evidence](docs/evidence), explicitly scoped to that revision. The expanded
+platform's [current test results and evaluation limitations](docs/validation-v2.md) are reported separately;
+run the commands below on your checkout rather than trusting a historical count.
+
+```bash
+python -m unittest discover -s tests -v
+(cd examples/durableflow && python -m unittest discover -s tests -v)
+```
 
 ## What actually runs
+
+- **Development orchestrator:** configured planning, DAG task execution, checks,
+  five-role review, evidence-backed repairs and persisted resume checkpoints.
+- **Bounded Implementation Agent:** explicit file ownership and before hashes,
+  staged change sets and reviewable diffs rather than unrestricted patch prose.
+- **Distinct provider contracts:** role-specific missions, tools, deliverables and
+  acceptance criteria, with separately configured commands/models/identities.
+- **Tool broker and isolation policy:** role permissions and audited operations;
+  Docker/Podman resource limits when an operational runtime and pinned image exist.
+  Trusted local execution requires an explicit opt-in and reports missing isolation.
+- **Architecture and quality extensions:** static module-boundary/cycle checks,
+  searchable engineering memory, secret triage, dependency-audit integration,
+  SBOM/license inventory and named performance budgets.
 
 - **Expert Conflict Engine:** structured objections, stable finding IDs, author-owned
   dispositions, regression evidence for fixes, and no high/critical risk waiver.
@@ -98,7 +115,23 @@ Claude Code project). The skill follows the open Agent Skills format; each host'
 discovery, delegation and command permissions still apply. See
 [installation and compatibility](docs/installation.md).
 
-In your target Python project:
+For a configured development cycle, create your target project and supply real
+provider commands. The [example registry](examples/agents.example.json) contains
+clearly marked placeholders; replace every command/provider/model before use.
+
+```bash
+forge5 --root /path/to/project plan --goal "Build a durable workflow engine" \
+  --agents /path/to/forge5-agents.json --execute
+forge5 --root /path/to/project build --agents /path/to/forge5-agents.json \
+  --rounds 3 --execute --format markdown
+```
+
+Default execution fails closed when isolation is unavailable. For code and
+providers you trust, explicitly add `--allow-local`; the report then states that
+filesystem/network/memory isolation is not enforced. See the
+[platform guide](docs/platform-v2.md) before configuring execution.
+
+The existing manual workflow remains available. In your target Python project:
 
 ```bash
 forge5 init --goal "Build a durable, dependency-aware workflow engine"
@@ -114,7 +147,7 @@ Ask your agent:
 > the checks, ask the five experts for evidence-backed review, resolve objections,
 > and give me the final report with measured results and remaining limits.
 
-The runtime does not silently invoke a model or execute code on initialization.
+Initialization does not invoke a model. The `plan`/`build` commands execute only explicitly configured providers with execution authorization.
 Inspect `forge5.toml`, implement the project and its tests, then:
 
 ```bash
@@ -195,9 +228,12 @@ For the submit/run/status CLI journey, follow the
 | Guide | What you will find |
 | --- | --- |
 | [Installation](docs/installation.md) | Runtime, portable skill and host compatibility |
+| [Platform development cycle](docs/platform-v2.md) | Provider contracts, bounded implementation, isolation and resumption |
 | [Architecture](docs/architecture.md) | State invariants, atomic rounds and release policy |
 | [Adapters & SDK](docs/adapters.md) | Native host integration, command reviewers and repair loops |
-| [Validation](docs/validation.md) | Measurements, discovered defects, repairs and limits |
+| [Current validation](docs/validation-v2.md) | Fresh measurements, discovered defects, repairs and limits |
+| [Paired evaluation](docs/evaluation-v2.md) | Five repair projects, baseline fairness and fixture limits |
+| [Historical validation](docs/validation.md) | Original 0.1.0 measurements |
 | [Research](docs/research.md) | Design positioning and primary project references |
 | [Security](SECURITY.md) | Trust model and vulnerability reporting |
 | [Changelog](CHANGELOG.md) | Version history |
@@ -222,8 +258,9 @@ reproducible behavioral evidence. The project uses the [MIT license](LICENSE).
 
 FORGE-5 depends on the capability of its host model and tools. It cannot guarantee
 arbitrary project completion, independent judgment, full security coverage or
-commercial success. Commands execute with host permissions; this runtime is not
-a sandbox. The built-in AST scanner is a small triage tool, not a dependency audit
+commercial success. Legacy and explicitly permitted local commands execute with host permissions.
+Container execution depends on a configured operational Docker/Podman runtime;
+the broker itself is not an OS sandbox. The built-in AST scanner is a small triage tool, not a dependency audit
 or formal security assessment. Source freshness and audit hashes are local
 consistency checks, not signed attestations. Read the
 [security model](SECURITY.md) and [architecture](docs/architecture.md).
